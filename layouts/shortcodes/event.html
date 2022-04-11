@@ -1,0 +1,75 @@
+{{$duration := ""}}
+
+{{$to := now }}
+{{ if ne (.Get "to") ""}}
+    {{$to = time (.Get "to") }}
+{{end}}
+
+{{$enabledTime := ne (.Get "from") ""}}
+
+{{if $enabledTime }}
+    {{$from := time (.Get "from") }}
+    {{$tmonths:= mul ($to.Sub $from).Hours 0.00136986301 }}
+    {{$months := mod $tmonths 12 }}
+    {{$years := math.Floor (div $tmonths 12)}}
+    {{$yearStr := "years"}}
+    {{if lt $years 2 }}{{$yearStr = "year"}}{{end}}
+    {{$monthStr := "months"}}
+    {{if lt $months 2 }}{{$monthStr = "month"}}{{end}}
+
+    {{$duration = ""}}
+    {{if gt $years 0 }}{{$duration = printf "%s %.0f %s" $duration $years $yearStr}}{{end}}
+    {{if gt $months 0 }}{{$duration = printf "%s %d %s" $duration $months $monthStr}}{{end}}
+{{end}}
+
+<div class="container">
+    <div class="content collapsible {{ if .Get "collapsed" }}collapsed{{ end }}">
+        <div class="title">{{.Get "title"}}</div>
+        {{if $enabledTime }}
+        <div class="moment" {{ if eq .Ordinal 0 }} id="moment" {{ end }}>
+            {{ if ne .Ordinal 0 }} {{$duration}} {{ end }}
+        </div>
+        {{ end }}
+        <div class="body">{{.Inner}}</div>
+    </div>
+    
+    <div class="date">
+        {{ if ne (.Get "to") ""}}
+            {{$to.Month}}<br>{{$to.Year}}
+        {{ else }}
+            Present
+        {{ end }}
+    </div>
+
+</div>
+
+{{ if and (eq (.Ordinal) 0) $enabledTime }}
+    <script>
+        function non0plural(number, name) {
+            if (number == 0) {
+                return "";
+            }
+            return number + " " + name + (number > 1 ? "s" : "");
+        }
+
+        function monthDiff(d1, d2) {
+            let months;
+            months = (d2.getFullYear() - d1.getFullYear()) * 12;
+            months -= d1.getMonth();
+            months += d2.getMonth();
+            return months <= 0 ? 0 : months;
+        }
+
+        el = document.querySelector("#moment");
+        function refresh() {
+            let start = new Date({{.Get "from"}});
+            let now = new Date();
+
+            total_months = monthDiff(start, now);
+            months = total_months % 12;
+            years = Math.floor((total_months) / 12);
+            el.innerHTML = non0plural(years, "year") + " " + non0plural(months, "month");
+        }
+        window.setInterval(refresh, 1*1000);
+    </script>
+{{ end }}

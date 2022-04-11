@@ -1,0 +1,119 @@
+.timeline {
+    --date_column_width: 100px;
+
+    --timeline_column_width: 50px;
+    --timeline_line_width: 6px;
+    --timeline_line_color: #888;
+    --timeline_bullet_diameter: 25px;
+    --timeline_bullet_border_width: var(--timeline_line_width);
+    --timeline_bullet_color: #FFF;
+
+    --content_collapse_duration: 0.3s;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline {
+    position: relative;
+    margin: 0 auto;
+}
+
+/* The actual timeline (the vertical ruler) */
+.timeline::after {
+    content: "";
+    position: absolute;
+    width: var(--timeline_line_width);
+    background-color: var(--timeline_line_color);
+    top: 0;
+    bottom: 0;
+    left: calc(var(--date_column_width) + 0.5*var(--timeline_column_width) - 0.5*var(--timeline_line_width));
+}
+
+/* Container around content */
+.timeline .container {
+    padding: 10px 10px 10px 10px;
+    margin-top: 10px;
+    position: relative;
+    width: calc(100% - var(--date_column_width) - var(--timeline_column_width));
+    margin-left: calc(var(--date_column_width) + var(--timeline_column_width));
+}
+
+/* The circles on the timeline */
+.timeline .container::after {
+    content: "";
+    position: absolute;
+    width: var(--timeline_bullet_diameter);
+    height: var(--timeline_bullet_diameter);
+    left: calc(-0.5 * var(--timeline_column_width) - 0.5 * var(--timeline_bullet_diameter) - var(--timeline_bullet_border_width));
+    background-color: var(--timeline_bullet_color);
+    border: var(--timeline_bullet_border_width) solid var(--timeline_line_color);
+    top: 0px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* date display */
+.timeline .container .date {
+    position: absolute;
+    width: var(--date_column_width);
+    top: 22px;
+    z-index: 1;
+    left: calc(-1 * (var(--date_column_width) + var(--timeline_column_width)));
+    font-size: large;
+    text-align: end;
+}
+
+/* The actual content */
+.timeline .content {
+    border: 1px solid #FFF;
+    background-color: #0002;
+    position: relative;
+    border-radius: 6px;
+    transition: box-shadow 0.3s;
+}
+
+/* small shadow change on hover*/
+.timeline .content:hover {
+    box-shadow: 0 0 3px 3px #FFF4;
+}
+
+/* card title format */
+.timeline .content .title {
+    padding: 5px 30px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* time moment format*/
+.timeline .content .moment {
+    margin: 0;
+    color: #FFF;
+    opacity: 0.6;
+    position: absolute;
+    top: 50%;
+    transform: rotate(-90deg);
+    transform-origin: 0% 100%;
+    width: auto;
+    transition: opacity calc(0.5 * var(--content_collapse_duration));
+    transition-delay: calc(0.5 * var(--content_collapse_duration));
+}
+
+.timeline .content.collapsed .moment {
+    opacity: 0.0;
+    transition-delay: 0.0s;
+}
+
+/* body size */
+.timeline .content .body {
+    margin: 0px;
+    padding: 5px 30px;
+    transition-property: max-height, padding;
+    transition-duration: var(--content_collapse_duration);
+    transition-timing-function: ease-in-out;
+    overflow: hidden;
+}
+
+.timeline .content.collapsed .body {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    max-height: 0px;
+}
