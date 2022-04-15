@@ -1,7 +1,7 @@
 .timeline {
-    --date_column_width: 100px;
+    --date_column_width: 80px;
 
-    --timeline_column_width: 50px;
+    --timeline_column_width: 60px;
     --timeline_line_width: 6px;
     --timeline_line_color: #888;
     --timeline_bullet_diameter: 25px;
@@ -30,8 +30,7 @@
 
 /* Container around content */
 .timeline .container {
-    padding: 10px 10px 10px 10px;
-    margin-top: 10px;
+    margin-bottom: 0px;
     position: relative;
     width: calc(100% - var(--date_column_width) - var(--timeline_column_width));
     margin-left: calc(var(--date_column_width) + var(--timeline_column_width));
@@ -59,7 +58,9 @@
     z-index: 1;
     left: calc(-1 * (var(--date_column_width) + var(--timeline_column_width)));
     font-size: large;
+    line-height: 1.0em;
     text-align: end;
+    margin: 0px;
 }
 
 /* The actual content */
@@ -90,8 +91,8 @@
     opacity: 0.6;
     position: absolute;
     top: 50%;
-    transform: rotate(-90deg);
-    transform-origin: 0% 100%;
+    transform: translateX(-50%) rotate(-90deg);
+    transform-origin: 50% 100%;
     width: auto;
     transition: opacity calc(0.5 * var(--content_collapse_duration));
     transition-delay: calc(0.5 * var(--content_collapse_duration));
