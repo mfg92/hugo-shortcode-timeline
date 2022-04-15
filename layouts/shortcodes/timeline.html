@@ -5,8 +5,8 @@
 <script>
     // add make transition on property max-height work by setting max-height to an actual value (instead of auto)
     // when the timeline container is clicked
-    for (let collapsible of document.getElementsByClassName("collapsible")) {
-        let content = collapsible.querySelector(".body");
+    for (const collapsible of document.getElementsByClassName("collapsible")) {
+        const content = collapsible.querySelector(".body");
 
         function doCollapse(collapse) {
             if (collapse) {
@@ -22,7 +22,7 @@
             // wait for a short moment, else the transition effect does not work
             window.requestAnimationFrame(() => {
                 window.requestAnimationFrame(() => {
-                    let collapsed = collapsible.classList.toggle("collapsed");
+                    const collapsed = collapsible.classList.toggle("collapsed");
                     doCollapse(collapsed);
                 });
             });

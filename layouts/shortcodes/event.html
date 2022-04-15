@@ -62,12 +62,12 @@
 
         el = document.querySelector("#moment");
         function refresh() {
-            let start = new Date({{.Get "from"}});
-            let now = new Date();
+            const start = new Date({{.Get "from"}});
+            const now = new Date();
 
-            total_months = monthDiff(start, now);
-            months = total_months % 12;
-            years = Math.floor((total_months) / 12);
+            const total_months = monthDiff(start, now);
+            const months = total_months % 12;
+            const years = Math.floor((total_months) / 12);
             el.innerHTML = non0plural(years, "year") + " " + non0plural(months, "month");
         }
         window.setInterval(refresh, 1*1000);
