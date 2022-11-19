@@ -3,12 +3,15 @@
 
     --timeline_column_width: 60px;
     --timeline_line_width: 6px;
-    --timeline_line_color: #888;
+    --timeline_line_color: #444;
     --timeline_bullet_diameter: 25px;
     --timeline_bullet_border_width: var(--timeline_line_width);
     --timeline_bullet_color: #FFF;
 
     --content_collapse_duration: 0.3s;
+    --content_background_color: #FFF;
+    --content_border_color: #444;
+    --content_duration_color: #000;
 }
 
 /* The actual timeline (the vertical ruler) */
@@ -65,8 +68,8 @@
 
 /* The actual content */
 .timeline .content {
-    border: 1px solid #FFF;
-    background-color: #0002;
+    border: 2px solid var(--content_border_color);
+    background-color: var(--content_background_color);
     position: relative;
     border-radius: 6px;
     transition: box-shadow 0.3s;
@@ -74,7 +77,7 @@
 
 /* small shadow change on hover*/
 .timeline .content:hover {
-    box-shadow: 0 0 3px 3px #FFF4;
+    box-shadow: 0 0 3px 3px #0004;
 }
 
 /* card title format */
@@ -84,10 +87,10 @@
     display: inline-block;
 }
 
-/* time moment format*/
-.timeline .content .moment {
+/* duration format*/
+.timeline .content .duration {
     margin: 0;
-    color: #FFF;
+    color: var(--content_duration_color);
     opacity: 0.6;
     position: absolute;
     top: 50%;
@@ -98,7 +101,7 @@
     transition-delay: calc(0.5 * var(--content_collapse_duration));
 }
 
-.timeline .content.collapsed .moment {
+.timeline .content.collapsed .duration {
     opacity: 0.0;
     transition-delay: 0.0s;
 }

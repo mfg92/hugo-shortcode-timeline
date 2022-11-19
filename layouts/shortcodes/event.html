@@ -26,7 +26,7 @@
     <div class="content collapsible {{ if .Get "collapsed" }}collapsed{{ end }}">
         <div class="title">{{.Get "title"}}</div>
         {{if $enabledTime }}
-        <div class="moment" {{ if eq .Ordinal 0 }} id="moment" {{ end }}>
+        <div class="duration" {{ if eq .Ordinal 0 }} id="duration" {{ end }}>
             {{ if ne .Ordinal 0 }} {{$duration}} {{ end }}
         </div>
         {{ end }}
@@ -60,7 +60,7 @@
             return months <= 0 ? 0 : months;
         }
 
-        el = document.querySelector("#moment");
+        el = document.querySelector("#duration");
         function refresh() {
             const start = new Date({{.Get "from"}});
             const now = new Date();
