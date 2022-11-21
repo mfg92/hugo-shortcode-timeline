@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="{{ "/shortcode-timeline/timeline.css"| relURL }}">
-<link rel="stylesheet" href="{{ "/shortcode-timeline/timeline-mobile.css"| relURL }}" media="screen and (max-width: 736px)">
+<link rel="stylesheet" href="{{ (resources.Get "shortcode-timeline/timeline.sass" | toCSS).Permalink | relURL }}">
+<link rel="stylesheet" href="{{ (resources.Get "shortcode-timeline/timeline-mobile.sass" | toCSS).Permalink | relURL }}" media="screen and (max-width: 736px)">
 
 <div class="timeline">{{ .Inner }}</div>
 

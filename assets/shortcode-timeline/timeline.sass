@@ -1,0 +1,94 @@
+@import "variables"
+    
+.timeline
+  position: relative
+  margin: 0 auto
+
+  &::after
+    content: ""
+    position: absolute
+    width: var(--timeline_line_width)
+    background-color: var(--timeline_line_color)
+    top: 0
+    bottom: 0
+    left: calc(var(--date_column_width) + 0.5*var(--timeline_column_width) - 0.5*var(--timeline_line_width))
+
+
+  .container
+    margin-bottom: 0px
+    position: relative
+    width: calc(100% - var(--date_column_width) - var(--timeline_column_width))
+    margin-left: calc(var(--date_column_width) + var(--timeline_column_width))
+
+
+    &::after
+      content: ""
+      position: absolute
+      width: var(--timeline_bullet_diameter)
+      height: var(--timeline_bullet_diameter)
+      left: calc(-0.5 * var(--timeline_column_width) - 0.5 * var(--timeline_bullet_diameter) - var(--timeline_bullet_border_width))
+      background-color: var(--timeline_bullet_color)
+      border: var(--timeline_bullet_border_width) solid var(--timeline_line_color)
+      top: 0px
+      border-radius: 50%
+      z-index: 1
+
+    .date
+      position: absolute
+      width: var(--date_column_width)
+      top: 22px
+      z-index: 1
+      left: calc(-1 * (var(--date_column_width) + var(--timeline_column_width)))
+      font-size: large
+      line-height: 1.0em
+      text-align: end
+      margin: 0px
+
+
+  .content
+    border: 2px solid var(--content_border_color)
+    background-color: var(--content_background_color)
+    position: relative
+    border-radius: 6px
+    transition: box-shadow 0.3s
+
+
+    &:hover
+      box-shadow: 0 0 3px 3px #0004
+
+
+    .title
+      padding: 5px 30px
+      font-weight: bold
+      display: inline-block
+
+
+    .duration
+      margin: 0
+      color: var(--content_duration_color)
+      opacity: 0.6
+      position: absolute
+      top: 50%
+      transform: translateX(-50%) rotate(-90deg)
+      transform-origin: 50% 100%
+      width: auto
+      transition: opacity calc(0.5 * var(--content_collapse_duration))
+      transition-delay: calc(0.5 * var(--content_collapse_duration))
+
+    &.collapsed .duration
+      opacity: 0.0
+      transition-delay: 0.0s
+
+
+    .body
+      margin: 0px
+      padding: 5px 30px
+      transition-property: max-height, padding
+      transition-duration: var(--content_collapse_duration)
+      transition-timing-function: ease-in-out
+      overflow: hidden
+
+    &.collapsed .body
+      padding-top: 0px
+      padding-bottom: 0px
+      max-height: 0px

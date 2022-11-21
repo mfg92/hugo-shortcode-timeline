@@ -1,0 +1,33 @@
+/* This CSS file is used on mobile devices
+
+@import "variables-mobile"
+
+.timeline
+  /* Container around content */
+  .container
+    min-height: 100px
+    hyphens: auto
+
+    /* date display */
+    .date
+      width: auto
+      top: calc(var(--timeline_bullet_diameter) + 2 * var(--timeline_line_width) - 1.5em)
+      left: calc(-0.5 * var(--timeline_column_width))
+      min-height: 3em // this simulates two lines (2 x line-height)
+      font-size: medium
+      text-align: start
+      transform: rotate(90deg)
+      transform-origin: 0% 50%
+      line-height: 1.5em
+
+  /* The actual content */
+  .content
+    min-height: 100px
+
+    /* card title format */
+    .title
+      padding: 0px 5px
+
+    /* body size */
+    .body
+      padding: 5px 10px
